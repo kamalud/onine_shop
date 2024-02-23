@@ -33,11 +33,12 @@ Route::middleware('auth')->group(function () {
 // Admin route start 
 Route::group(['prefix'=>'admin','middleware'=>'redirectAdmin'],function(){
     Route::get('login',[AuthController::class,'LoginShow'])->name('admin.login');
-    Route::post('login',[AuthController::class,'login'])->name('admin.login.post');
-    Route::post('logout',[AuthController::class,'logout'])->name('admin.logout');
+    Route::post('login/post',[AuthController::class,'login'])->name('admin.login.post');
+    
 });
 Route::middleware('auth','admin')->prefix('admin')->group(function(){
     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+    Route::post('logout',[AuthController::class,'logout'])->name('admin.logout');
   });
 // Admin route end 
 

@@ -14,8 +14,9 @@ class AuthController extends Controller
     }
 
     public function Login(Request $request){
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->passthru,'isAdmin' => true])){
-          return redirect()->rooute('admin.dashboard')->with('success','Admin login has been successfuly');
+
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'isAdmin' => true])){
+          return redirect()->route('admin.dashboard')->with('success','Admin login has been successfuly');
         }
         return redirect()->route('admin.login')->with('error','Invalid credintails');
     }
