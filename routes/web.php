@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AnotherController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,18 @@ Route::middleware('auth','admin')->prefix('admin')->group(function(){
     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
     Route::post('logout',[AuthController::class,'logout'])->name('admin.logout');
   });
+
+    // product route start===============================
+Route::prefix('products')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::post('store', [ProductController::class, 'store'])->name('product.store');
+
+    // Another Controller start
+    Route::get('/porduct/category',[AnotherController::class,'category'])->name('product.category');
+    Route::get('/porduct/brand',[AnotherController::class,'brand'])->name('product.brand');
+  
+  });
+  
 // Admin route end 
 
 
